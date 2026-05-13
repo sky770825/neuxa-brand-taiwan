@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>味本 | 台灣傳統小吃 · 麵線糊專門</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700;900&family=Noto+Serif+TC:wght@600;700;900&display=swap');
+  :root {
+    --cream: #faf8f2;
+    --navy: #1a2a3a;
+    --red: #c0392b;
+    --red-dark: #a83227;
+    --white: #ffffff;
+    --gray: #5a5a5a;
+    --gold: #b8860b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    background: rgba(250,248,242,0.97);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(26,42,58,0.08);
+    padding: 1rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-logo {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.6rem; font-weight: 900; color: var(--navy);
+    letter-spacing: 0.15em;
+  }
+  .nav-logo span { color: var(--red); font-weight: 300; font-family: 'Noto Sans TC', sans-serif; font-size: 0.8rem; margin-left: 0.5rem; letter-spacing: 0.1em; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--navy); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color .3s; letter-spacing: 0.05em; }
+  .nav-links a:hover { color: var(--red); }
+  .nav-cta {
+    background: var(--red); color: var(--white); border: none;
+    padding: 0.6rem 1.8rem; border-radius: 25px; font-weight: 700;
+    font-size: 0.9rem; cursor: pointer; transition: .3s;
+    font-family: 'Noto Sans TC', sans-serif; letter-spacing: 0.05em;
+  }
+  .nav-cta:hover { background: var(--red-dark); transform: translateY(-1px); box-shadow: 0 4px 15px rgba(192,57,43,0.3); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    background: linear-gradient(180deg, #faf8f2 0%, #f3efe4 50%, #ede7d9 100%);
+    position: relative; overflow: hidden;
+    padding: 6rem 2rem 4rem;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1.5" fill="%231a2a3a" opacity="0.04"/></svg>') repeat;
+    background-size: 60px 60px;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 700px; }
+  .hero-badge {
+    display: inline-block; background: rgba(192,57,43,0.08);
+    color: var(--red); padding: 0.4rem 1.2rem; border-radius: 20px;
+    font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 1.5rem;
+    border: 1px solid rgba(192,57,43,0.2);
+  }
+  .hero h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 4rem; font-weight: 900; line-height: 1.2;
+    color: var(--navy); margin-bottom: 1.5rem; letter-spacing: 0.08em;
+  }
+  .hero h1 em { color: var(--red); font-style: normal; }
+  .hero p { font-size: 1.15rem; color: var(--gray); margin-bottom: 2.5rem; font-weight: 400; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .btn-primary {
+    background: var(--red); color: var(--white); border: none;
+    padding: 1rem 2.5rem; border-radius: 25px; font-weight: 700;
+    font-size: 1rem; cursor: pointer; transition: .3s; text-decoration: none;
+    letter-spacing: 0.05em; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(192,57,43,0.3); }
+  .btn-outline {
+    background: transparent; color: var(--navy); border: 1.5px solid var(--navy);
+    padding: 1rem 2.5rem; border-radius: 25px; font-weight: 700;
+    font-size: 1rem; cursor: pointer; transition: .3s; text-decoration: none;
+    letter-spacing: 0.05em; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--red); color: var(--red); }
+
+  /* ── HERO IMG ROW ── */
+  .hero-imgs { display: flex; gap: 1rem; justify-content: center; margin-top: 2.5rem; flex-wrap: wrap; }
+  .hero-imgs img { width: 180px; height: 130px; object-fit: cover; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); transition: .3s; }
+  .hero-imgs img:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(0,0,0,0.15); }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 6rem 2rem; }
+  .section-tag {
+    color: var(--red); font-weight: 700; font-size: 0.85rem;
+    letter-spacing: 0.15em; margin-bottom: 0.8rem;
+    display: block; text-align: center;
+  }
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2.8rem; font-weight: 900; margin-bottom: 3rem;
+    letter-spacing: 0.05em; text-align: center;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  /* ── MENU ── */
+  #menu { background: var(--white); }
+  .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+  .menu-card {
+    background: var(--cream); border-radius: 16px; overflow: hidden;
+    transition: .3s; border: 1px solid rgba(26,42,58,0.06);
+  }
+  .menu-card:hover { transform: translateY(-6px); box-shadow: 0 15px 40px rgba(0,0,0,0.08); border-color: rgba(192,57,43,0.15); }
+  .menu-card-img { width: 100%; height: 220px; object-fit: cover; }
+  .menu-card-body { padding: 1.5rem; text-align: center; }
+  .menu-card-body h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--navy); }
+  .menu-card-body p { color: var(--gray); font-size: 0.9rem; margin-bottom: 1rem; }
+  .menu-price { color: var(--red); font-weight: 900; font-size: 1.3rem; }
+
+  /* ── ABOUT ── */
+  #about { background: var(--cream); position: relative; }
+  #about .container { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .about-img { width: 100%; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+  .about-text p { color: var(--gray); margin-bottom: 1.2rem; font-size: 1.05rem; }
+  .about-text .section-tag, .about-text .section-title { text-align: left; }
+
+  /* ── FEATURES ── */
+  #features { background: var(--white); }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+  .feature-card {
+    text-align: center; padding: 2.5rem 1.5rem;
+    background: var(--cream); border-radius: 16px; transition: .3s;
+    border: 1px solid rgba(26,42,58,0.05);
+  }
+  .feature-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+  .feature-icon { font-size: 2.8rem; margin-bottom: 1rem; }
+  .feature-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--navy); }
+  .feature-card p { color: var(--gray); font-size: 0.9rem; }
+
+  /* ── GALLERY ── */
+  #gallery { background: var(--cream); }
+  .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  .gallery-item { border-radius: 12px; overflow: hidden; transition: .3s; aspect-ratio: 1; }
+  .gallery-item:hover { transform: scale(1.03); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--white); text-align: center; }
+  #contact .container { max-width: 600px; }
+  .contact-info { color: var(--gray); font-size: 1.1rem; margin-bottom: 1.5rem; }
+  .contact-info strong { color: var(--navy); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy); text-align: center; padding: 2rem;
+    color: rgba(255,255,255,0.6); font-size: 0.85rem;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .hero h1 { font-size: 3rem; }
+    #about .container { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .nav { padding: 1rem; }
+    .nav-links { display: none; }
+    .hero h1 { font-size: 2.4rem; }
+    section { padding: 4rem 1rem; }
+    .section-title { font-size: 2rem; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">味本<span>WEI BEN</span></div>
+  <ul class="nav-links">
+    <li><a href="#menu">經典菜單</a></li>
+    <li><a href="#about">關於味本</a></li>
+    <li><a href="#features">堅持品質</a></li>
+    <li><a href="#gallery">美食寫真</a></li>
+    <li><a href="#contact">聯絡我們</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">店鋪資訊</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-badge">🪷 古早味 · 台灣情</span>
+    <h1>一碗<em>麵線</em><br>千般滋味</h1>
+    <p>傳承三代的古早味手藝，濃郁湯頭搭配手工麵線、鮮蚵與大腸。從筒仔米糕到碗粿，味本帶您重溫最純粹的台灣味。</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-primary">瀏覽菜單</a>
+      <a href="#contact" class="btn-outline">尋找店面</a>
+    </div>
+    <div class="hero-imgs">
+      <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=200&h=140&fit=crop" alt="台灣小吃">
+      <img src="https://images.unsplash.com/photo-1555126634-323283e090fa?w=200&h=140&fit=crop" alt="麵線">
+      <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=200&h=140&fit=crop" alt="傳統美食">
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="container">
+    <span class="section-tag">▸ 經典菜單</span>
+    <h2 class="section-title">古早味 · 匠心手作</h2>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1555126634-323283e090fa?w=400&h=300&fit=crop" alt="大腸蚵仔麵線">
+        <div class="menu-card-body">
+          <h3>大腸蚵仔麵線</h3>
+          <p>手工麵線、鮮蚵、滷大腸，柴魚高湯熬煮六小時</p>
+          <span class="menu-price">NT$ 65</span>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=300&fit=crop" alt="筒仔米糕">
+        <div class="menu-card-body">
+          <h3>筒仔米糕</h3>
+          <p>糯米蒸製，搭配肉燥、香菇與特製甜辣醬</p>
+          <span class="menu-price">NT$ 45</span>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=400&h=300&fit=crop" alt="碗粿">
+        <div class="menu-card-body">
+          <h3>古早味碗粿</h3>
+          <p>在來米磨漿，搭配菜脯、鹹蛋黃與肉燥</p>
+          <span class="menu-price">NT$ 40</span>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1569058242567-93de6f36f8e6?w=400&h=300&fit=crop" alt="清麵線">
+        <div class="menu-card-body">
+          <h3>清麵線</h3>
+          <p>最純粹的手工麵線，搭配香菜與蒜泥，簡單即美味</p>
+          <span class="menu-price">NT$ 40</span>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=300&fit=crop" alt="綜合羹">
+        <div class="menu-card-body">
+          <h3>綜合羹麵線</h3>
+          <p>花枝羹、蝦仁羹、肉羹，三重口感一次滿足</p>
+          <span class="menu-price">NT$ 85</span>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img class="menu-card-img" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop" alt="滷肉飯">
+        <div class="menu-card-body">
+          <h3>古早味滷肉飯</h3>
+          <p>肥瘦適中滷肉，搭配醃漬小黃瓜與滷蛋</p>
+          <span class="menu-price">NT$ 35</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="about-text">
+      <span class="section-tag">▸ 關於味本</span>
+      <h2 class="section-title">回味台灣<br>本心傳承</h2>
+      <p>味本，取「回味台灣，本心傳承」之意。源自台南小巷裡的百年老店，創始人從一碗麵線糊出發，將台灣最道地的古早味傳承至今。</p>
+      <p>我們堅持手工製作，從麵線的揉製到高湯的熬煮，每一步都遵循古法。嚴選嘉義東石鮮蚵、溫體豬大腸，只為呈現最純粹的台灣味。</p>
+      <p>走進味本，不只是吃一碗麵線，更是品味一段台灣的飲食記憶。</p>
+    </div>
+    <img class="about-img" src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&h=400&fit=crop" alt="台灣傳統美食">
+  </div>
+</section>
+
+<section id="features">
+  <div class="container">
+    <span class="section-tag">▸ 品質堅持</span>
+    <h2 class="section-title">四大美味承諾</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🍜</div>
+        <h3>手工麵線</h3>
+        <p>每日手工揉製，自然日曬，口感 Q 彈不軟爛。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🦪</div>
+        <h3>東石鮮蚵</h3>
+        <p>嘉義東石直送，每日新鮮到貨，粒粒飽滿鮮甜。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🍲</div>
+        <h3>柴魚高湯</h3>
+        <p>鰹魚乾、昆布慢火熬煮六小時，湯頭濃郁回甘。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧹</div>
+        <h3>衛生安心</h3>
+        <p>每日食材新鮮處理，廚房明亮整潔，吃得安心。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="container">
+    <span class="section-tag">▸ 美食寫真</span>
+    <h2 class="section-title">色香味俱全</h2>
+    <div class="gallery-grid">
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1555126634-323283e090fa?w=300&h=300&fit=crop" alt="Noodle"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=300&h=300&fit=crop" alt="Taiwanese"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=300&h=300&fit=crop" alt="Traditional"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1569058242567-93de6f36f8e6?w=300&h=300&fit=crop" alt="Soup"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=300&h=300&fit=crop" alt="Food"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=300&h=300&fit=crop" alt="Braised"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=300&h=300&fit=crop" alt="Noodles"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=300&h=300&fit=crop" alt="Asian Food"></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <span class="section-tag">▸ 聯絡我們</span>
+    <h2 class="section-title">來店品嚐</h2>
+    <p class="contact-info">📍 <strong>台南市中西區國華街三段 25 號</strong></p>
+    <p class="contact-info">📞 <strong>(06) 222-3366</strong></p>
+    <p class="contact-info">🕐 週二至週日 07:00 - 19:00（週一公休）</p>
+    <br>
+    <a href="tel:+88662223366" class="btn-primary">立即致電</a>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 味本 Wei Ben. All rights reserved. | 台灣傳統小吃 · 麵線糊專門</p>
+</footer>
+
+</body>
+</html>
